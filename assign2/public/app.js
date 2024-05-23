@@ -7,7 +7,7 @@ export default class App {
 
     const addCardForm = document.getElementById("addCard");
     const cardTitle = document.getElementById("cardTitle");
-    // const cardColor = document.getElementById("cardColor");
+    const cardColor = document.getElementById("cardColor");
 
     const submitCardInfo = (event) => {
       this._mover.stopMoving();  // STEP 3: Handles case (2) of canceling a move
