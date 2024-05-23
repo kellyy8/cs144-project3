@@ -1,0 +1,11 @@
+Kelly Yu
+UID
+
+For the extra credit, I implemented the drag and drop feature for the cards.
+I used "dragstart", "dragover", and "drop" to handle the events when the card was dragged and dropped to move the card.
+To use the functionality, the user would click anywhere in the card's region and drag to initiate the move (startMoving).
+If the user lets go of the card on top of a moveHere button, the card takes the place of the button.
+If the user lets go of the card anywhere else, the card stays in place (invalid drop; cancel move).
+I added change to card.js and mover.js (marked with "EXTRA CREDIT" comments).
+In card.js, I bound the card element to an event handler for the "draggable" event.
+In mover.js, I defined the event handlers to handle "drop" and "dragover" events.

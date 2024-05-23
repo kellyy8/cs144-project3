@@ -1,0 +1,54 @@
+:root {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+.template, .hidden {
+  display: none;
+}
+
+/* Added styles. */
+input, button, textarea{
+  font-size: inherit;
+}
+
+textarea {
+  font-family: inherit;
+}
+
+.moving {
+  border: 2px solid black;
+}
+
+.editDescription {
+  width: 100%;
+  height: 5em;
+  background-color: transparent;
+}
+
+.description {
+  white-space: pre-wrap;
+}
+
+.edit, .startMove, .delete, .moveHere {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+}
+
+.edit:hover, .startMove:hover, .delete:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.moveHere {
+  font-size: small;
+  color: gray;
+}
+
+.moveHere:hover {
+  background-color: #e0e0e0;
+  color: black;
+}
