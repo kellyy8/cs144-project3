@@ -1,0 +1,100 @@
+/* Step 2.1 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;  /* Allow top bar to extend across the page. */
+}
+
+h1 {
+    font-size: x-large;
+}
+
+/* Step 2.2 */
+header {
+    background-color: #202020;
+    color: white;
+    display: flex;  /* Default flex-direction is 'row'. */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5rem;
+}
+
+/* Step 2.3 */
+#addCard {
+    padding: 0.5rem 0; /* Step 2.2 */
+    display: flex;
+    column-gap: 0.5rem;
+}
+
+#cardTitle {
+    width: 20em;
+}
+
+#cardColor {
+    width: 8em;
+    height: inherit;
+}
+
+#addButton {
+    padding: 0.25rem 1rem;
+    background-color: lightgreen;
+    color: black;
+}
+
+/* Step 2.4 */
+#board {
+    padding: 0 5rem;
+    display: flex;
+}
+
+#todo, #done {
+    background-color: #f0f0f0;
+}
+
+#doing {
+    background-color: white;
+}
+
+.column {
+    padding: 0 0.5rem;
+    width: 100%;  /* Step 2.4 and 2.5 */
+}
+
+.columnTitle {
+    padding: 1rem 1rem 0 1rem;
+}
+
+/* Step 2.5 */
+.card {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    position: relative;  /* Step 2.6 */
+}
+
+h3 {
+    margin: 0;
+}
+
+/* Step 2.6 */
+.buttons {
+    opacity: 0;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.card:hover .buttons {
+    opacity: 1;
+}
+
+/* .edit, .delete{
+    background-color: orange;
+}
+
+.startMove{
+    background-color: red;
+} */
+
+.edit, .startMove, .delete {
+    margin: 0 -2.5px;           /* TODO: Remove spacing between the buttons. */
+}
