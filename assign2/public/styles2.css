@@ -2,6 +2,11 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;  /* Allow top bar to extend across the page. */
+
+    /* Step 2.7 */
+    height: 100vh;  /* Fill up entire screen. */
+    display: flex;
+    flex-direction: column;  /* Align top bar and board along a vertical axis. They split the space in body container. */
 }
 
 h1 {
@@ -20,7 +25,7 @@ header {
 
 /* Step 2.3 */
 #addCard {
-    padding: 0.5rem 0; /* Step 2.2 */
+    padding: 0.5rem 0;  /* Step 2.2 */
     display: flex;
     column-gap: 0.5rem;
 }
@@ -44,6 +49,7 @@ header {
 #board {
     padding: 0 5rem;
     display: flex;
+    flex-grow: 1;  /* Step 2.7 */ /* Take up remaining space in body container. */
 }
 
 #todo, #done {
@@ -55,7 +61,7 @@ header {
 }
 
 .column {
-    padding: 0 0.5rem;
+    padding: 0 0.5rem 3rem;  /* Step 2.7 */
     width: 100%;  /* Step 2.4 and 2.5 */
 }
 
