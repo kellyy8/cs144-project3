@@ -12,6 +12,23 @@ export default class Card {
 
     // Select the card's color.
     this._newCard.style.backgroundColor = color;
+    // console.log(color);
+    color = color.replace(/^#/, '');
+    // console.log(color);
+    let bigint = parseInt(color, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+    let brightness = 0.2126*r + 0.7152*g + 0.0722*b;
+    // console.log(r, g, b);
+    // console.log(brightness);
+    
+    if (brightness >= 128){
+      this._newCard.style.color = "black";
+    }
+    else{
+      this._newCard.style.color = "white";
+    }
     
     // Retrieve clone's elements and modify their text content between tags.
     let newCardTitle = this._newCard.querySelector(".title");  // fixed

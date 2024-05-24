@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-mode="light"> <!-- Added data-color-mode attribute. Default is light mode. -->
   <head>
     <meta charset="UTF-8">
     <title>Task Board | Assignment 2</title>
@@ -20,6 +20,8 @@
         <input type="color" name="color" id="cardColor" value="#9caf88">  <!-- Changed type from "text" to "color" and removed placeholder="Color". -->
         <button type="submit" id="addButton">Add</button>
       </form>
+
+      <button id="colorModeButton"><img src="icons/moon-regular.svg" alt="Change to dark mode." width="20em" height="20em"></button>  <!-- Added this. Default is light mode. -->
     </header>
 
     <main id="board">

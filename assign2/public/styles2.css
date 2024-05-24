@@ -1,3 +1,25 @@
+/* Step 3 */
+[data-color-mode="light"]{
+    --color--foreground: black;
+    --color--background: white;
+    /* --color--doing: white;
+    --color--not--doing: #f0f0f0; */
+}
+
+[data-color-mode="dark"]{
+    --color--foreground: white;
+    --color--background: black;
+    /* --color--doing: #0a0a0a;
+    --color--not--doing: #434343; */
+}
+
+#colorModeButton {
+    position: fixed;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
 /* Step 2.1 */
 body {
     font-family: Arial, sans-serif;
@@ -7,6 +29,10 @@ body {
     height: 100vh;  /* Fill up entire screen. */
     display: flex;
     flex-direction: column;  /* Align top bar and board along a vertical axis. They split the space in body container. */
+
+    /* Step 3 */
+    background-color: var(--color--background);
+    color: var(--color--foreground);
 }
 
 h1 {
