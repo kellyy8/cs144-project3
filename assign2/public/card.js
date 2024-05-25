@@ -9,26 +9,6 @@ export default class Card {
     let templateCard = document.querySelector(".template.card");
     this._newCard = templateCard.cloneNode(true);
     this._newCard.classList.remove("template");
-
-    // Select the card's color.
-    this._newCard.style.backgroundColor = color;
-    // console.log(color);
-    color = color.replace(/^#/, '');
-    // console.log(color);
-    let bigint = parseInt(color, 16);
-    let r = (bigint >> 16) & 255;
-    let g = (bigint >> 8) & 255;
-    let b = bigint & 255;
-    let brightness = 0.2126*r + 0.7152*g + 0.0722*b;
-    // console.log(r, g, b);
-    // console.log(brightness);
-    
-    if (brightness >= 128){
-      this._newCard.style.color = "black";
-    }
-    else{
-      this._newCard.style.color = "white";
-    }
     
     // Retrieve clone's elements and modify their text content between tags.
     let newCardTitle = this._newCard.querySelector(".title");  // fixed
@@ -117,6 +97,53 @@ export default class Card {
 
     // EXTRA CREDIT:
     this._newCard.setAttribute("draggable", true);  
+
+    // Project 3: Step 3 (Implement light/dark mode).
+    // Select the card's color.
+    this._newCard.style.backgroundColor = color;
+    // console.log(color);
+    color = color.replace(/^#/, '');
+    // console.log(color);
+    let bigint = parseInt(color, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+    let brightness = 0.2126*r + 0.7152*g + 0.0722*b;
+    // console.log(r, g, b);
+    // console.log(brightness);
+    
+    let tone = "black";     // card color is light
+    if (brightness < 128){  // card color is dark
+      tone = "white";
+    }
+    
+    this._newCard.style.color = tone;
+    let buttons = this._newCard.querySelectorAll(".edit, .startMove, .delete");
+
+    // SAMPLE CODE - START //
+    // buttons.forEach((button) => {
+    //   let img = button.querySelector("img");
+    //   console.log(img);
+    //   fetch(img.src).then(response => response.text()).then(svgText => {
+    //     const parser = new DOMParser();
+    //     const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+    //     const svgElement = svgDoc.querySelector('svg');
+
+    //     // Change the fill attribute
+    //     svgElement.setAttribute('fill', tone);
+
+    //     // Serialize the SVG back to a string
+    //     const serializer = new XMLSerializer();
+    //     const newSVGText = serializer.serializeToString(svgElement);
+
+    //     // Create a new data URI for the img src
+    //     const newSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(newSVGText);
+
+    //     // Set the new src to the img element
+    //     img.src = newSrc;
+    //   })
+    // })
+    // SAMPLE CODE - END //    
   }
 
   addToCol(colElem, mover) { 

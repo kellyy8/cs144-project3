@@ -1,16 +1,16 @@
 /* Step 3 */
-[data-color-mode="light"]{
+[data-color-mode="light"]{  /* As given by default and the spec. */
     --color--foreground: black;
     --color--background: white;
-    /* --color--doing: white;
-    --color--not--doing: #f0f0f0; */
+    --color--doing: white;
+    --color--not--doing: #f0f0f0;
 }
 
-[data-color-mode="dark"]{
+[data-color-mode="dark"]{  /* Custom colors. */
     --color--foreground: white;
-    --color--background: black;
-    /* --color--doing: #0a0a0a;
-    --color--not--doing: #434343; */
+    --color--background: #313131;
+    --color--doing: (var(--color--background));
+    --color--not--doing: #434343;
 }
 
 #colorModeButton {
@@ -58,11 +58,19 @@ header {
 
 #cardTitle {
     width: 20em;
+    color: var(--color--foreground);
+    background-color: var(--color--background);
+}
+
+::placeholder {  /* Not required. */
+    color: var(--color--foreground);
+    opacity: 0.5;
 }
 
 #cardColor {
     width: 8em;
     height: inherit;
+    background-color: var(--color--background);
 }
 
 #addButton {
@@ -79,11 +87,11 @@ header {
 }
 
 #todo, #done {
-    background-color: #f0f0f0;
+    background-color: var(--color--not--doing);
 }
 
 #doing {
-    background-color: white;
+    background-color: var(--color--doing);
 }
 
 .column {
@@ -129,5 +137,4 @@ h3 {
 
 .edit, .startMove, .delete {
     margin: 0 -2.5px;           /* TODO: Remove spacing between the buttons. */
-    /* fill: #ffffff; */
 }
