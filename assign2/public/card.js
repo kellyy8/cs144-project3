@@ -93,7 +93,24 @@ export default class Card {
         this.setDescription(inputArea.value);
         inputArea.classList.add("hidden");
         this._newCardDescription.classList.remove("hidden");
+
+        // Project 3: Step 5
+        // Update card data in local storage.
+        let columns = JSON.parse(window.localStorage.getItem("columns"));
+        let index = this._newCard.dataset.index;
+        if (this._col === "todo"){
+          columns.todo[index].description = this._newCardDescription.textContent;
+        }
+        else if (this._col === "doing"){
+          columns.doing[index].description = this._newCardDescription.textContent;
+        }
+        else if (this._col === "done"){
+          columns.done[index].description = this._newCardDescription.textContent;
+        }
+        window.localStorage.setItem("columns", JSON.stringify(columns));
+
       })
+      
     }
     this._editButton.addEventListener("click", editCard);
 
