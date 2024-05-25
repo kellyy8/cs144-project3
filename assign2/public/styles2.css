@@ -4,6 +4,8 @@
     --color--background: white;
     --color--doing: white;
     --color--not--doing: #f0f0f0;
+    --color--input--foreground: black;
+    --color--input--background: white;
 }
 
 [data-color-mode="dark"]{  /* Custom colors. */
@@ -11,6 +13,8 @@
     --color--background: #313131;
     --color--doing: (var(--color--background));
     --color--not--doing: #434343;
+    --color--input--foreground: white;
+    --color--input--background: gray;
 }
 
 #colorModeButton {
@@ -58,12 +62,12 @@ header {
 
 #cardTitle {
     width: 20em;
-    color: var(--color--foreground);
-    background-color: var(--color--background);
+    color: var(--color--input--foreground);
+    background-color: var(--color--input--background);
 }
 
-::placeholder {  /* Not required. */
-    color: var(--color--foreground);
+::placeholder {  /* TODO: Not required. */
+    color: var(--color--input--foreground);
     opacity: 0.5;
 }
 
