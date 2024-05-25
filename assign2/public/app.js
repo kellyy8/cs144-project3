@@ -12,7 +12,21 @@ export default class App {
     const submitCardInfo = (event) => {
       this._mover.stopMoving();  // STEP 3: Handles case (2) of canceling a move
       event.preventDefault();  // prevent default reloading window
-      this.addCard("todo", cardTitle.value, cardColor.value);
+  
+      // Project 3: Step 5 (Add card information to Local Storage).
+      // Get data from local storage.
+      let columns = JSON.parse(window.localStorage.getItem("columns"));
+      let todoList = columns.todo;
+
+      // Add card to DOM and set its index.
+      let card = this.addCard("todo", cardTitle.value, cardColor.value);
+      card.setIndex(todoList.length);
+
+      // Add card data to local storage.
+      todoList.push({title: cardTitle.value, description: "", color: cardColor.value});  // TODO: set description to constant or ""?
+      window.localStorage.setItem("columns", JSON.stringify(columns));
+
+      // Reset input form values.
       cardTitle.value = "";
       cardColor.value = "#9caf88";
     }
@@ -21,15 +35,15 @@ export default class App {
     cardTitle.addEventListener("submit", submitCardInfo);
     // cardColor.addEventListener("keypress", enterPressed);
 
-    // Project 3 Step 3 (Light/Dark Mode Button)
+    // Project 3: Step 3 (Implement button to handle light and dark modes.)
     // Determine current color mode (stored user preferences > window settings).
     function getColorMode() {
-      let mode = localStorage.getItem("color-mode");
+      const mode = window.localStorage.getItem("colorMode");
       if (mode !== null){
         return mode;
       }
       
-      let systemSettingLight = window.matchMedia("(prefers-color-scheme: light)");
+      const systemSettingLight = window.matchMedia("(prefers-color-scheme: light)");
       if (systemSettingLight.matches){
         return "light";
       }
@@ -43,7 +57,7 @@ export default class App {
         button_icon.setAttribute("alt", "Change to dark mode.");
       }
       else{
-        button_icon.setAttribute("src", "icons/sun-regular.svg");
+        button_icon.setAttribute("src", "icons/sun.svg");
         button_icon.setAttribute("alt", "Change to light mode.");
       }
     }
@@ -59,7 +73,7 @@ export default class App {
     let colorMode = getColorMode();
     updateHTMLmode(html, colorMode);
     updateCMButton(colorModeButton, colorMode === "light");
-    localStorage.setItem("color-mode", colorMode);
+    window.localStorage.colorMode = colorMode;  // Initialize colorMode key to colorMode value.
     
     // Update html element's color mode and button, and store user preferences locally.
     const toggleColorMode = () => {
@@ -69,20 +83,67 @@ export default class App {
       if (currentColorMode === "light"){
         updateHTMLmode(html, "dark");
         updateCMButton(colorModeButton, false);
-        localStorage.setItem("color-mode", "dark");
+        window.localStorage.setItem("colorMode", "dark");
       }
       else{
         updateHTMLmode(html, "light");
         updateCMButton(colorModeButton, true);
-        localStorage.setItem("color-mode", "light");
+        window.localStorage.setItem("colorMode", "light");
       }
-      currentColorMode = html.getAttribute("data-color-mode");
+      // currentColorMode = html.getAttribute("data-color-mode");
       // console.log("switched to: " + currentColorMode);
       // console.log("new alt: " + colorModeButton.querySelector("img").getAttribute("alt"));
       // console.log("");
     }
-    
     colorModeButton.addEventListener("click", toggleColorMode);
+
+    const initLocalStorage = ()=> {
+      const columns = { todo: [], doing: [], done: [] };
+      window.localStorage.columns = JSON.stringify(columns);
+    }
+
+    const getFromLocalStorage = (columns) => {
+      columns = JSON.parse(columns);
+      const todoList = columns.todo;
+      const doingList = columns.doing;
+      const doneList = columns.done;
+
+      // test: change to let not const
+      // doingList.push({title: "A", color:"#1c1c1c"});
+      // doingList.push({title: "B", color:"#1c1c1c"});
+      // doingList.push({title: "C", color:"#1c1c1c"});
+      // window.localStorage.setItem("columns", JSON.stringify(columns));
+      
+      todoList.forEach((cardInfo, index) => {
+        let card = this.addCard("todo", cardInfo.title, cardInfo.color);
+        card.setDescription(cardInfo.description);
+        card.setIndex(index);
+      })
+
+      doingList.forEach((cardInfo, index) => {
+        let card = this.addCard("doing", cardInfo.title, cardInfo.color);
+        card.setDescription(cardInfo.description);
+        card.setIndex(index);
+      })
+
+      doneList.forEach((cardInfo, index) => {
+        let card = this.addCard("done", cardInfo.title, cardInfo.color);
+        card.setDescription(cardInfo.description);
+        card.setIndex(index);
+      })
+    }
+
+    function loadCards(){
+      const columns = window.localStorage.getItem("columns");
+      if (columns === null){
+        initLocalStorage();
+      }
+      else{
+        getFromLocalStorage(columns);
+      }
+    }
+
+    loadCards();
   }
 
   addCard(col, title, color) {

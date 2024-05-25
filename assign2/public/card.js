@@ -4,6 +4,7 @@ const NO_DESCRIPTION_TEXT = "(No description)";
 export default class Card {
   constructor(title, color) {
     this._mover = null;  // STEP 3
+    this._col = null;  // Project 3: Step 5
 
     // STEP 1:
     let templateCard = document.querySelector(".template.card");
@@ -37,9 +38,43 @@ export default class Card {
     this._newCardDescription = this._newCard.querySelector(".description"); // not fixed; can be updated
     this._newCardDescription.textContent = NO_DESCRIPTION_TEXT;
 
-    // STEP 2:
+    // STEP 2 & Project 3: Step 5
     this._delButton = this._newCard.querySelector(".delete");
-    this._delButton.addEventListener("click", () => {this._newCard.remove();});
+    const removeCard = () => {
+      // Remove card data from local storage.
+      let columns = JSON.parse(window.localStorage.getItem("columns"));
+      const index = this._newCard.dataset.index;
+      // console.log(index);
+
+      // In the DOM, update the indices for the cards that follow the deleted card.
+      if (this._col === "todo"){
+        let todoCards = document.getElementById("todo").querySelectorAll(".card");
+        for (let i=index; i<todoCards.length; i++){
+          todoCards[i].dataset.index -= 1;
+        }
+        columns.todo.splice(index, 1);  // remove card data from local storage
+      }
+      // TODO: Test if this works on doing and done columns. (i think they are tbh)
+      else if (this._col === "doing"){
+        let doingCards = document.getElementById("doing").querySelectorAll(".card");
+        for (let i=index; i<doingCards.length; i++){
+          doingCards[i].dataset.index -= 1;
+        }
+        columns.doing.splice(index, 1);  // remove card data from local storage
+      }
+      else if (this._col === "done"){
+        let doneCards = document.getElementById("done").querySelectorAll(".card");
+        for (let i=index; i<doneCards.length; i++){
+          doneCards[i].dataset.index -= 1;
+        }
+        columns.done.splice(index, 1);  // remove card data from local storage
+      }
+      window.localStorage.setItem("columns", JSON.stringify(columns));  // update local storage
+      
+      // Remove card from DOM.
+      this._newCard.remove();
+    }
+    this._delButton.addEventListener("click", removeCard);
 
     this._editButton = this._newCard.querySelector(".edit");
     const editCard = () => {      
@@ -78,6 +113,7 @@ export default class Card {
 
     // STEP 1:
     colElem.appendChild(this._newCard);
+    this._col = colElem.getAttribute("id");  // Project 3: Step 5
   }
 
   setDescription(text) {
@@ -87,6 +123,11 @@ export default class Card {
     else {
       this._newCardDescription.textContent = text;
     }
+  }
+
+  // TODO: Check if I'm allowed to add this function. Check if I can implement functionality without this function.
+  setIndex(index) {
+    this._newCard.dataset.index = index;
   }
 
 }
