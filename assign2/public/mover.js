@@ -69,7 +69,7 @@ export default class Mover {
       target.after(this._selected_card);
 
       // DOM ∆ PART 4 OUT OF 4: Increment the indices of all cards that will follow inserted card.
-      // LOCAL STORAGE ∆ PART 2 OUT OF 2: Add card data to new column's list in local storage.
+      // LOCAL STORAGE ∆ PART 2 OUT OF 2: Add card data to new column's list in local storage.
       let new_col = target.parentElement.getAttribute("id");
       let new_index = 0;  // if adding to top of column
       // console.log(target.previousSibling.nodeName);
