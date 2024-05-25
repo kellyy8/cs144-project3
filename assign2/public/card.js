@@ -4,7 +4,6 @@ const NO_DESCRIPTION_TEXT = "(No description)";
 export default class Card {
   constructor(title, color) {
     this._mover = null;  // STEP 3
-    this._col = null;  // Project 3: Step 5
 
     // STEP 1:
     let templateCard = document.querySelector(".template.card");
@@ -44,10 +43,11 @@ export default class Card {
       // Remove card data from local storage.
       let columns = JSON.parse(window.localStorage.getItem("columns"));
       const index = this._newCard.dataset.index;
+      const col = this._newCard.dataset.col;
       // console.log(index);
 
       // In the DOM, update the indices for the cards that follow the deleted card.
-      if (this._col === "todo"){
+      if (col === "todo"){
         let todoCards = document.getElementById("todo").querySelectorAll(".card");
         for (let i=index; i<todoCards.length; i++){
           todoCards[i].dataset.index -= 1;
@@ -55,14 +55,14 @@ export default class Card {
         columns.todo.splice(index, 1);  // remove card data from local storage
       }
       // TODO: Test if this works on doing and done columns. (i think they are tbh)
-      else if (this._col === "doing"){
+      else if (col === "doing"){
         let doingCards = document.getElementById("doing").querySelectorAll(".card");
         for (let i=index; i<doingCards.length; i++){
           doingCards[i].dataset.index -= 1;
         }
         columns.doing.splice(index, 1);  // remove card data from local storage
       }
-      else if (this._col === "done"){
+      else if (col === "done"){
         let doneCards = document.getElementById("done").querySelectorAll(".card");
         for (let i=index; i<doneCards.length; i++){
           doneCards[i].dataset.index -= 1;
@@ -97,20 +97,21 @@ export default class Card {
         // Project 3: Step 5
         // Update card data in local storage.
         let columns = JSON.parse(window.localStorage.getItem("columns"));
-        let index = this._newCard.dataset.index;
-        if (this._col === "todo"){
+        const index = this._newCard.dataset.index;
+        const col = this._newCard.dataset.col;
+        if (col === "todo"){
           columns.todo[index].description = this._newCardDescription.textContent;
         }
-        else if (this._col === "doing"){
+        else if (col === "doing"){
           columns.doing[index].description = this._newCardDescription.textContent;
         }
-        else if (this._col === "done"){
+        else if (col === "done"){
           columns.done[index].description = this._newCardDescription.textContent;
         }
         window.localStorage.setItem("columns", JSON.stringify(columns));
 
       })
-      
+
     }
     this._editButton.addEventListener("click", editCard);
 
@@ -130,7 +131,7 @@ export default class Card {
 
     // STEP 1:
     colElem.appendChild(this._newCard);
-    this._col = colElem.getAttribute("id");  // Project 3: Step 5
+    this._newCard.dataset.col = colElem.getAttribute("id");  // Project 3: Step 5
   }
 
   setDescription(text) {

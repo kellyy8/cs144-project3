@@ -129,4 +129,5 @@ h3 {
 
 .edit, .startMove, .delete {
     margin: 0 -2.5px;           /* TODO: Remove spacing between the buttons. */
+    /* fill: #ffffff; */
 }
