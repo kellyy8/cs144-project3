@@ -74,7 +74,7 @@ export default class Mover {
       let new_index = 0;  // if adding to top of column
       // console.log(target.previousSibling.nodeName);
       if (target.previousSibling.nodeName === "ARTICLE"){  // if adding to middle or bottom of column
-        console.log("updated index")
+        // console.log("updated index")
         new_index = Number(target.previousSibling.dataset.index) + 1;  // +1 since inserting after the moveHere button
       }
 
