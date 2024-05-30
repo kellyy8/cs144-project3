@@ -4,6 +4,15 @@ const MOVE_HERE_TEXT = "— Move here —";
 export default class Mover {
   constructor() {
     this._selected_card = null;
+
+    this.cancelDrag = (event) => {
+      if (!this._selected_card.contains(event.target)) {  // Check if user clicked outside moving card's region.
+        // console.log(this._selected_card);
+        // console.log(event.target);
+        event.preventDefault();
+        this.stopMoving();
+      }
+    }
   }
 
   startMoving(card) {  // card == this.newCard property of Card object
@@ -16,16 +25,13 @@ export default class Mover {
     this._selected_card = card;
     this._selected_card.classList.add("moving");
 
-    // EXTRA CREDIT (sub-start): Handle the case when card is not dropped onto a moveHere button.
-    const cancelDrag = (event) => {
-      event.preventDefault();
-      this.stopMoving();
-    }
-    document.body.addEventListener("drop", cancelDrag);
+    // Project 2: EC and Step 3.4 - Cancel move via missing drop zone or click outside of card buttons.
+    document.addEventListener("click", this.cancelDrag);
+    document.body.addEventListener("drop", this.cancelDrag);
     document.body.addEventListener("dragover", (event) => {event.preventDefault();});
-    // EXTRA CREDIT (sub-end)
 
     const moveCard = (event) => {
+      // event.stopPropagation();
       event.preventDefault();  // EXTRA CREDIT
       const target = event.currentTarget;  // Target (button) belongs to a card or title. Selected card should take the spot of target.
       
@@ -173,6 +179,8 @@ export default class Mover {
     for(let i=0; i<allMoveHereButtons.length; i++){
       allMoveHereButtons[i].remove();
     }
+
+    document.removeEventListener("click", this.cancelDrag);
   }
 
 }
