@@ -4,7 +4,6 @@ const MOVE_HERE_TEXT = "— Move here —";
 export default class Mover {
   constructor() {
     this._selected_card = null;
-    this._movedCard = false;
 
     // PROJECT 3 EXTRA CREDIT
     this._emptySpace = document.querySelector(".template.card").cloneNode(true);  // not added to DOM tree upon cloning
