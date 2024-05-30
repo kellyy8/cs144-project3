@@ -18,7 +18,7 @@
 }
 
 #colorModeButton {
-    position: fixed;
+    position: absolute;
     right: 10px;
     display: flex;
     /* justify-content: center; */
@@ -49,6 +49,7 @@ header {
     background-color: #202020;
     color: white;
     display: flex;  /* Default flex-direction is 'row'. */
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 0 5rem;
@@ -56,7 +57,9 @@ header {
 
 /* Step 2.3 */
 #addCard {
+    padding: 0.5rem 0;  /* Step 2.2 */
     display: flex;
+    flex-wrap: wrap;
     column-gap: 0.5rem;
 }
 
@@ -101,6 +104,8 @@ header {
 .column { /* #todo, #doing, #done */
     padding: 0 0.5rem 3rem;  /* Step 2.4 and 2.7 */
     flex: 1;  /* Step 2.4 and 2.5 */
+    /* display: flex;
+    flex-direction: column; */
 }
 
 .columnTitle {
@@ -126,6 +131,7 @@ h3 {
     top: 0.5rem;
     right: 0.5rem;
     display: flex;  /* Remove spacing between the buttons. */
+    flex-wrap: wrap;
 }
 
 .card:hover .buttons {
@@ -139,3 +145,7 @@ h3 {
 .startMove{
     background-color: red;
 } */
+
+.dropped {
+    border: 0.25rem solid black;
+}

@@ -110,8 +110,25 @@ export default class Mover {
 
       window.localStorage.setItem("columns", JSON.stringify(columns)); // Update local storage with the changes.
 
+      // PROJECT 3 EXTRA CREDIT
+      if(event.type === "drop"){
+        console.log(event.type);
+        this._selected_card.classList.add("dropped");
+      }
+
       this.stopMoving();  // Complete the move.
     }
+
+    // PROJECT 3 EXTRA CREDIT
+    const removeBorder = () => {
+      let droppedCard = document.querySelector(".dropped");
+      if(droppedCard != null){
+        console.log(droppedCard);
+        droppedCard.classList.remove("dropped");
+      }
+    }
+    document.addEventListener("click", removeBorder);
+    document.addEventListener("dragstart", removeBorder);  // TODO: Check if this is required.
 
     function createMoveHereButton() {
       let moveHereButton = document.createElement("BUTTON");
