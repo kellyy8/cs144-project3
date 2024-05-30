@@ -5,8 +5,9 @@ export default class Mover {
   constructor() {
     this._selected_card = null;
 
-    this.cancelDrag = (event) => {
-      if (!this._selected_card.contains(event.target)) {  // Check if user clicked outside moving card's region.
+    this.cancelMove = (event) => {
+      // Cancel move if user clicked outside moving card's region and it's not a moveHere button.
+      if (!this._selected_card.contains(event.target) && !event.target.classList.contains("moveHere")) {
         // console.log(this._selected_card);
         // console.log(event.target);
         event.preventDefault();
@@ -26,8 +27,8 @@ export default class Mover {
     this._selected_card.classList.add("moving");
 
     // Project 2: EC and Step 3.4 - Cancel move via missing drop zone or click outside of card buttons.
-    document.addEventListener("click", this.cancelDrag);
-    document.body.addEventListener("drop", this.cancelDrag);
+    document.addEventListener("click", this.cancelMove);
+    document.body.addEventListener("drop", this.cancelMove);
     document.body.addEventListener("dragover", (event) => {event.preventDefault();});
 
     const moveCard = (event) => {
@@ -180,7 +181,7 @@ export default class Mover {
       allMoveHereButtons[i].remove();
     }
 
-    document.removeEventListener("click", this.cancelDrag);
+    document.removeEventListener("click", this.cancelMove);
   }
 
 }
