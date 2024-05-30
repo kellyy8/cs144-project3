@@ -34,7 +34,6 @@ export default class Card {
         }
         columns.todo.splice(index, 1);  // remove card data from local storage
       }
-      // TODO: Test if this works on doing and done columns. (i think they are tbh)
       else if (col === "doing"){
         let doingCards = document.getElementById("doing").querySelectorAll(".card");
         for (let i=index; i<doingCards.length; i++){
@@ -131,10 +130,10 @@ export default class Card {
     this._mover = mover;
     this._delButton.addEventListener("click", () => {this._mover.stopMoving();});  // Handles case (1) of canceling a move.
     let moveButton = this._newCard.querySelector(".startMove");
-    moveButton.addEventListener("click", () => {this._mover.startMoving(this._newCard)});
+    moveButton.addEventListener("click", () => {this._mover.startMoving(this._newCard);});
 
     // EXTRA CREDIT:
-    this._newCard.addEventListener("dragstart", () => {this._mover.startMoving(this._newCard)});
+    this._newCard.addEventListener("dragstart", () => {this._mover.startMoving(this._newCard);});
 
     // STEP 1:
     colElem.appendChild(this._newCard);

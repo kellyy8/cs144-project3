@@ -93,7 +93,6 @@ export default class Mover {
         }
         columns.todo.splice(new_index, 0, cardInfo); 
       }
-      // TODO: Test if this works on doing and done columns. (i think they are tbh)
       else if (new_col === "doing"){
         let doingCards = document.getElementById("doing").querySelectorAll(".card");
         for (let i=new_index+1; i<doingCards.length; i++){

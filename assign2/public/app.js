@@ -107,12 +107,6 @@ export default class App {
       const todoList = columns.todo;
       const doingList = columns.doing;
       const doneList = columns.done;
-
-      // test: change to let not const
-      // doingList.push({title: "A", color:"#1c1c1c"});
-      // doingList.push({title: "B", color:"#1c1c1c"});
-      // doingList.push({title: "C", color:"#1c1c1c"});
-      // window.localStorage.setItem("columns", JSON.stringify(columns));
       
       todoList.forEach((cardInfo, index) => {
         let card = this.addCard("todo", cardInfo.title, cardInfo.color);
