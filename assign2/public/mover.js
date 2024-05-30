@@ -4,10 +4,16 @@ const MOVE_HERE_TEXT = "— Move here —";
 export default class Mover {
   constructor() {
     this._selected_card = null;
+    this._movedCard = false;
+
+    // PROJECT 3 EXTRA CREDIT
+    this._emptySpace = document.querySelector(".template.card").cloneNode(true);  // not added to DOM tree upon cloning
+    this._emptySpace.classList.remove("template");
+    this._emptySpace.style.opacity = "0";
 
     this.cancelMove = (event) => {
       // Cancel move if user clicked outside moving card's region and it's not a moveHere button.
-      if (!this._selected_card.contains(event.target) && !event.target.classList.contains("moveHere")) {
+      if (this._selected_card != null && !this._selected_card.contains(event.target) && !event.target.classList.contains("moveHere")) {
         // console.log(this._selected_card);
         // console.log(event.target);
         event.preventDefault();
@@ -29,6 +35,8 @@ export default class Mover {
     // Project 2: EC and Step 3.4 - Cancel move via missing drop zone or click outside of card buttons.
     document.addEventListener("click", this.cancelMove);
     document.body.addEventListener("drop", this.cancelMove);
+
+    // Handle what happens as card is being dragged.
     document.body.addEventListener("dragover", (event) => {event.preventDefault();});
 
     const moveCard = (event) => {
@@ -137,13 +145,19 @@ export default class Mover {
     document.addEventListener("click", removeBorder);
     document.addEventListener("dragstart", removeBorder);  // TODO: Check if this is required.
 
+    // Project 3: EC
+    const makeSpace = (event) => {
+      event.preventDefault();
+      event.target.after(this._emptySpace);
+    }
+
     function createMoveHereButton() {
       let moveHereButton = document.createElement("BUTTON");
       moveHereButton.classList.add("moveHere");
       moveHereButton.textContent = MOVE_HERE_TEXT;
       moveHereButton.addEventListener("click", moveCard);
       moveHereButton.addEventListener("drop", moveCard);  // EXTRA CREDIT
-      moveHereButton.addEventListener("dragover", (event) => {event.preventDefault();});  // EXTRA CREDIT
+      moveHereButton.addEventListener("dragover", makeSpace);  // EXTRA CREDIT
       return moveHereButton;
     }
 
@@ -181,7 +195,14 @@ export default class Mover {
       allMoveHereButtons[i].remove();
     }
 
+    // Project 2: Step 3.4
     document.removeEventListener("click", this.cancelMove);
+
+    // PROJECT 3 EXTRA CREDIT - Remove the blank space and reset the blank space to be ready for another move via drag.
+    this._emptySpace.remove();
+    this._emptySpace = document.querySelector(".template.card").cloneNode(true);  // not added to DOM tree upon cloning
+    this._emptySpace.classList.remove("template");
+    this._emptySpace.style.opacity = "0";
   }
 
 }
